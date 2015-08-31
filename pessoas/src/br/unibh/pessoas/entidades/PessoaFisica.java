@@ -3,6 +3,14 @@ import java.util.Date;
 
 public class PessoaFisica extends Pessoa {
 
+	public PessoaFisica(Long id, String nome, String endereco, String telefone,
+			String cpf, String email, Date dataNascimento, String sexo) {
+		super(id, nome, endereco, telefone);
+		this.cpf = cpf;
+		this.email = email;
+		this.dataNascimento = dataNascimento;
+		this.sexo = sexo;
+	}
 	private String cpf;
 	private String email;
 	private Date dataNascimento;
