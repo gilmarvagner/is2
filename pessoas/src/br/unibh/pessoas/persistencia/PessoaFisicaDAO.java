@@ -1,5 +1,6 @@
 package br.unibh.pessoas.persistencia;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 public class PessoaFisicaDAO<PessoaFisica> implements DAO<PessoaFisica, Long>{
@@ -31,6 +32,17 @@ public class PessoaFisicaDAO<PessoaFisica> implements DAO<PessoaFisica, Long>{
 	@Override
 	public List<PessoaFisica> findAll() {
 		// TODO Auto-generated method stub
+		try {
+			ResultSet res = JDBCUtil.getConnection().prepareStatement("select * from tb_pessoa_fisica").executeQuery();
+			while (res.next()){
+				System.out.println(res.getString("nome"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			
+		}
+		
 		return null;
 	}
 
