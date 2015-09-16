@@ -1,9 +1,11 @@
 package br.unibh.pessoas.persistencia;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
+import br.unibh.pessoas.entidades.PessoaFisica;
 
-public class PessoaFisicaDAO<PessoaFisica> implements DAO<PessoaFisica, Long>{
+public class PessoaFisicaDAO implements DAO<PessoaFisica, Long>{
 
 	@Override
 	public PessoaFisica find(Long id) {
@@ -32,10 +34,24 @@ public class PessoaFisicaDAO<PessoaFisica> implements DAO<PessoaFisica, Long>{
 	@Override
 	public List<PessoaFisica> findAll() {
 		// TODO Auto-generated method stub
-		try {
+		
+		List<PessoaFisica> lista = new ArrayList<PessoaFisica>();
+		try { 
 			ResultSet res = JDBCUtil.getConnection().prepareStatement("select * from tb_pessoa_fisica").executeQuery();
 			while (res.next()){
-				System.out.println(res.getString("nome"));
+				lista.add(
+							new PessoaFisica(
+									res.getLong("id"), 
+									res.getString("nome"),
+									res.getString("endereco"),
+									res.getString("telefone"), 
+									res.getString("cpf"), 
+									res.getString("email"), 
+									res.getDate("dataNascimento"), 
+									res.getString("sexo")
+									)
+						);
+						
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -43,7 +59,7 @@ public class PessoaFisicaDAO<PessoaFisica> implements DAO<PessoaFisica, Long>{
 			
 		}
 		
-		return null;
+		return lista;
 	}
 
 	
